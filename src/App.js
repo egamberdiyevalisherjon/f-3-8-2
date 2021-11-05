@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import "./App.css";
+import LeftSide from "./Components/LeftSide";
+import RightSide from "./Components/RightSide";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+    console.log(messages);
+    dispatch({
+      type: "INITIAL_MESSAGES",
+      payload: messages,
+    });
+  }, [dispatch]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <LeftSide />
+      <RightSide />
     </div>
   );
 }
